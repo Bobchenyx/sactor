@@ -1,5 +1,58 @@
 # SACToR: Structure-Aware C to Rust Translator
 
+## Bobchenyx Steps
+
+Workspace Setup.
+```bash
+sudo apt update 
+sudo apt install -y build-essential llvm clang libclang-dev cmake libssl-dev pkg-config valgrind tmux 
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+rustup component add rustfmt-preview
+```
+
+Build dependencies(binaries).
+```bash
+git clone -b sactor https://github.com/qsdrqs/crown.git
+cd crown
+cargo build --release
+cd ..
+
+git clone https://github.com/immunant/c2rust.git
+cd c2rust
+cargo build --release
+cd ..
+```
+
+Create & Activate venv.
+```bash
+pip install uv
+
+(uv sync)
+## update local path in scripts
+source setup-path.sh
+source .venv/bin/activate
+```
+
+Modification for [sactor.toml](sactor.default.toml). Get DeepSeek API Access from [Your First API Call](https://api-docs.deepseek.com/).
+```
+cp sactor.default.toml sactor.toml
+
+## llm = "DeepSeek"
+
+## api_key = "your-api-key"
+## model = "deepseek-chat" # DeepSeek-V3-0324
+```
+
+Update local path in [test_task.json](tests/c_examples/atoi/test_task/test_task.json).
+
+Run Examples.
+```bash
+cd tests/c_examples/atoi/
+sactor translate atoi.c ./test_task/test_task.json -r ./result_tmp --type bin 2>&1 | tee atoi-DeepSeekV3.log
+```
+
+
 ## Introduction
 
 SACToR is a tool that translates C code to Rust code through Large Language
