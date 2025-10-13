@@ -82,6 +82,16 @@ api_base = "http://localhost:11434"
 # Add more models following the same pattern
 # For complete list of supported providers and formats, see: https://docs.litellm.ai/docs/providers
 
+# Example: DeepSeek configuration
+[[litellm.model_list]]
+model_name = "DeepSeek-V32"
+[litellm.model_list.litellm_params]
+model = "deepseek/deepseek-chat"
+api_key = "os.environ/DEEPSEEK_API_KEY"
+api_base = "https://api.deepseek.com"
+# rpm = 500  # Optional: requests per minute limit
+# os.environ['DEEPSEEK_API_KEY']
+
 [test_generator]
 max_attempts = 6
 timeout_seconds = 60
