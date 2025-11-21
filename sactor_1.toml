@@ -1,6 +1,6 @@
 [general]
-llm = "AzureOpenAI" # you only need to configure the llm you want to use
-max_translation_attempts = 6
+llm = "OpenAI" # 可选: OpenAI, AzureOpenAI, DeepSeek, Anthropic, Google, Ollama, Qwen
+max_translation_attempts = 20
 max_verifier_harness_attempts = 6
 timeout_seconds = 60 # timeout for the execution of generated code
 system_message = '''
@@ -13,13 +13,15 @@ api_key = "your-api-key"
 endpoint = "https://your-endpoint.openai.azure.com/"
 api_version = "2024-12-26" # change this to your own API version
 model = "gpt-4o" # change this to your own model
-max_tokens = 8192 # maximum number of tokens to generate for each request
+max_tokens = 8192 # 用于非GPT-5模型
+max_completion_tokens = 8192 # 用于GPT-5模型
 # temperature = 1 # Uncomment this line if you want to set a temperature
 
 [OpenAI]
-api_key = "your-api-key"
-model = "gpt-4o" # change this to your own model
-max_tokens = 8192 # maximum number of tokens to generate for each request
+api_key = "xxx"
+model = "gpt-5" # 可选: gpt-4o, gpt-4o-mini, gpt-4-turbo, gpt-3.5-turbo, gpt-5
+max_tokens = 8192 # 用于非GPT-5模型
+max_completion_tokens = 8192 # 用于GPT-5模型
 # temperature = 1 # Uncomment this line if you want to set a temperature
 # organization = "your-organization" # uncomment this line if you are using an organization
 # project_id = "your-project-id" # uncomment this line if you are using a project id
@@ -27,7 +29,7 @@ max_tokens = 8192 # maximum number of tokens to generate for each request
 
 [DeepSeek]
 base_url = "https://api.deepseek.com"
-api_key = "your-api-key"
+api_key = "sk-your-deepseek-api-key"
 model = "deeepseek-reasoner" # change this to your own model
 max_tokens = 8192 # maximum number of tokens to generate for each request
 # temperature = 1 # Uncomment this line if you want to set a temperature
@@ -35,7 +37,7 @@ max_tokens = 8192 # maximum number of tokens to generate for each request
 # project_id = "your-project-id" # uncomment this line if you are using a project id
 
 [Anthropic]
-api_key = "your-api-key"
+api_key = "sk-ant-your-anthropic-api-key"
 model = "claude-3-5-sonnet-latest" # change this to your own model
 max_tokens = 8192 # maximum number of tokens to generate for each request
 # temperature  = 1 # Uncomment this line if you want to set a temperature
@@ -56,19 +58,13 @@ max_tokens = 16384 # maximum number of tokens for each request
 # Add any headers you want to send with the request
 # Authorization = "Bearer your-token"
 
-[VLLM]
-# vLLM provides OpenAI-compatible API
-# First, start vLLM server:
-#   python -m vllm.entrypoints.openai.api_server \
-#     --model Qwen/Qwen2.5-1.5B-Instruct \
-#     --port 8000
-base_url = "http://localhost:8000/v1"
-api_key = "EMPTY" # vLLM doesn't require a real API key
-model = "Qwen/Qwen2.5-1.5B-Instruct" # Model name as shown in vLLM server
+[Qwen]
+base_url = "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
+api_key = "xx"
+model = "qwen3-coder-plus-2025-09-23" # 可选: qwen-plus, qwen-max, qwen-turbo, qwen-long
 max_tokens = 8192 # maximum number of tokens to generate for each request
-temperature = 0.7 # temperature for generation
-# organization = "your-organization" # optional
-# project_id = "your-project-id" # optional
+max_completion_tokens = 8192 # 用于支持max_completion_tokens的模型
+# temperature = 1 # Uncomment this line if you want to set a temperature
 
 [test_generator]
 max_attempts = 6

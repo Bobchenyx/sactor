@@ -23,10 +23,15 @@ RUN apt-get update && \
 ENV RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
     PATH=/usr/local/cargo/bin:$PATH
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain 1.89 --profile minimal
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain 1.78 --profile default && \
+    rustup component add rustfmt
 
 # Install C2Rust from source (pinned to v0.20.0)
-RUN cargo install c2rust --version 0.20.0
+RUN git clone https://github.com/immunant/c2rust.git /opt/c2rust && \
+    cd /opt/c2rust && \
+    git checkout v0.20.0 && \
+    cargo build --release && \
+    ln -s /opt/c2rust/target/release/c2rust /usr/local/bin/c2rust
 
 # Install Crown fork from sactor branch
 RUN git clone -b sactor https://github.com/qsdrqs/crown.git /opt/crown && \

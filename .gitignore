@@ -1,21 +1,91 @@
-# environment
+# Environment
 .envrc
 .env
 .direnv/
 .venv/
+venv/
+env/
+ENV/
 .cache
 
-pyrightconfig.json
-__pycache__
-.vscode/launch.json
-
-/build
-/result
-
-# rust target
-/target
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
 *.so
+*.egg
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+*.pyc
+*.pyo
+*.pyd
+.Python
 
+# Rust
+/target/
+**/target/
+*.so
+# Cargo.lock 应该被提交（workspace 项目）
+
+# Nix
+/result
+/build
+
+# IDE
+.vscode/
+.vscode/launch.json
+.idea/
+*.code-workspace
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+*.log.*
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.before_optimization
+
+# Configuration files (user-specific)
 sactor.toml
+pyrightconfig.json
 AGENTS.md
 demo_scripts/
+
+# Test results and generated files
+test*/
+generated_tests/
+llm_generated_tests/
+random_test_results/
+manual_test_result/
+
+# Translation outputs
+translated_rust*/
+translation_progress*.json
+translation_log*.txt
+translation_progress.json.tmp
+
+# Test data files
+*_test_samples.json
+*_test_task.json
+*.c.json
+data_example.json
+demo_test.json
+model_test_result.txt
+
+# Docker
+.dockerignore
+
+# OS
+Thumbs.db
+.DS_Store
